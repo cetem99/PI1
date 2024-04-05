@@ -40,3 +40,39 @@ def login_post():
 @auth.route("/cadastro")
 def cadastro():
     return render_template("Cadastro.html")
+
+@auth.route("/cadastro", methods = ["POST"])
+def registro_post():
+    email = request.form.get("email")
+    senha = request.form.get("senha")
+    nome1 = request.form.get("nome1")
+    nome2 = request.form.get("nome2")
+    cpf = request.form.get("cpf")
+
+    checkEmail = CheckCadastro("user_email", email)
+    checkCPF = CheckCadastro("user_cpf", cpf)
+
+    if checkEmail >= 1:
+        flash("Email já cadastrado!")
+        return redirect(url_for("cadastro"))
+    elif checkCPF >= 1:
+        flash("CPF já cadastrado")
+        return redirect(url_for("cadastro"))
+    elif(
+        not email
+        or not senha
+        or not nome1
+        or not nome2
+        or not cpf
+        
+    ):
+        flash("Preencha o formulário todo!")
+        return redirect(url_for("cadastro"))
+    
+    else:
+        senhaHash = hashlib.sha1(senha.encode("utf-8")).hexdigest()
+        insertCadastro(email, senhaHash, nome1, nome2, cpf)
+        flash("Cadastrado com sucesso!")
+        return redirect(url_for("login"))
+        
+
