@@ -29,9 +29,9 @@
     <main>
       <div class="form-box">
         <div class="form-value">
-          <!-- {% with messages = get_flashed_messages() %} {% if messages %}
+          {% with messages = get_flashed_messages() %} {% if messages %}
           <div class="notification">{{ messages[0] }}</div>
-          {% endif %} {% endwith %} -->
+          {% endif %} {% endwith %}
           <h2>login</h2>
           <form action="/login" method="post">
             <div id="hi">
@@ -58,7 +58,7 @@
             <div class="register">
               <p>
                 <b><i>Não tem uma conta ? </i></b>&nbsp;
-                <a href="Cadastro.html">Criar conta</a>
+                <a href="{{ url_for('auth.cadastro') }}">Criar conta</a>
               </p>
             </div>
           </div>

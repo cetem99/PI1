@@ -4,7 +4,7 @@ USE db_eventos;
 
 -- tabela do usuario
 CREATE TABLE IF NOT EXISTS tb_usuario(
-user_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(150) NOT NULL,
     user_email VARCHAR(90) NOT NULL,
     user_password VARCHAR(90) NOT NULL,

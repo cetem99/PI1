@@ -8,8 +8,7 @@ const nomes_login = [];
         if (!Aceitar) {
           alert("Você deve aceitar os termos de uso antes de prosseguir.");
         } else if (nameInputValue && passwordInputValue) {
-          nomes_login.push({ Nome: nameInputValue, Senha: passwordInputValue });
-          console.log(nomes_login);
+          console.log("ok");
         } else {
           alert("Preencha os campos de nome e senha antes de enviar.");
         }
