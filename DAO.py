@@ -32,7 +32,6 @@ def CheckLogin(user, senha):
     return count
 
 def CheckCadastro(coluna, atributo):
-    cursor = cnx.cursor()
     query = (
         'SELECT COUNT(*) FROM tb_usuario WHERE '
         + coluna
@@ -82,16 +81,16 @@ def selectFromWhere(tabela, campoReferencia, valorReferencia, campoBuscado="*"):
     return result
 
 def insertCadastro(email, senha, nome1, nome2, cpf):
-    cursor = cnx.cursor()
+
     query = (
         "INSERT INTO tb_usuario (user_name, user_email, user_password, user_cpf) VALUES ('"
+        + nome1 
+        + " "
+        + nome2 
+        + "', '"
         + email
         + "', '"
         + senha
-        + "', '"
-        + nome1 
-        + " "
-        + nome2
         + "', '"
         + cpf
         + "')"
