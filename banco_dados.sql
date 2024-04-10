@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS tb_usuario(
     user_password VARCHAR(90) NOT NULL,
     user_cpf VARCHAR(90) NOT NULL,
     user_uf VARCHAR(2),
-    user_image BLOB
+    user_image BLOB,
+    user_type BOOLEAN
 );
 
 -- tabela do fornecedor
