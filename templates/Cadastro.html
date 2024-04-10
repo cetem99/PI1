@@ -16,7 +16,7 @@
     <div class="form-box">
       <div class="form-value">
         <h2>Cadastro</h2>
-        <form action="/login" method="post">
+        <form action="/cadastro" method="post">
           <div id="hi">
             <div>
               <div class="inputbox">
@@ -48,12 +48,12 @@
                   </a>
                 </label>
               </div>
-              <button onclick="Enviar()">Login</button>
+              <button onclick="Enviar()">Registrar</button>
 
               <div class="register">
                 <p>
                   <b><i>Já tenho uma conta? </i></b>&nbsp;
-                  <a href="login.html">Logar</a>
+                  <a href="{{ url_for('auth.login') }}">Logar</a>
                 </p>
               </div>
             </div>

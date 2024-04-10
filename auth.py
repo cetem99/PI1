@@ -73,6 +73,6 @@ def registro_post():
         senhaHash = hashlib.sha1(senha.encode("utf-8")).hexdigest()
         insertCadastro(email, senhaHash, nome1, nome2, cpf)
         flash("Cadastrado com sucesso!")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
         
 
