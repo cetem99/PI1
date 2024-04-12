@@ -4,14 +4,12 @@ import mysql.connector
 #print(cnx.is_connected())
 
 cnx = mysql.connector.connect(
-        user="root", password="Gatitcha1", host="127.0.0.1", database="db_eventos"
-    )
-    cursor = cnx.cursor()
-
+        user="root", password="senhaUltraSegura", host="127.0.0.1", database="db_eventos"
+)
 def CheckLogin(user, senha):
-    query = ('SELECT COUNT(*) FROM tb_usuario WHERE user_email =  %s  AND user_password = %s" 
-    )
+    query = ('SELECT COUNT(*) FROM tb_usuario WHERE user_email =  %s  AND user_password = %s')
 
+    cursor = cnx.cursor()
     cursor.execute(query,[user, senha])
 
     querySet = cursor.fetchone()
@@ -24,11 +22,14 @@ def CheckLogin(user, senha):
         print("n existe")
 
     cursor.close()
-    cnx.close()
 
     return count
 
 def CheckCadastro(coluna, atributo):
+    query = f"SELECT COUNT(*) FROM tb_usuario WHERE {coluna} = %s"
+    cursor = cnx.cursor()
+    cursor.execute(query, [atributo])
+
     querySet = cursor.fetchone()
 
     count = querySet[0]
@@ -39,11 +40,11 @@ def CheckCadastro(coluna, atributo):
         print("n existe")
 
     cursor.close()
-    cnx.close()
 
     return count
 
 def selectFromWhere(tabela, campoReferencia, valorReferencia, campoBuscado="*"):
+    cursor = cnx.cursor()
     query = (f"SELECT {campoBuscado} FROM {tabela} WHERE {campoReferencia} = '{valorReferencia}'")
 
     cursor.execute(query)
@@ -53,11 +54,11 @@ def selectFromWhere(tabela, campoReferencia, valorReferencia, campoBuscado="*"):
     result = querySet[0]
 
     cursor.close()
-    cnx.close()
 
     return result
 
 def insertCadastro(email, senha, nome1, nome2, cpf):
+    cursor = cnx.cursor()
     query = (
         "INSERT INTO tb_usuario (user_name, user_email, user_password, user_cpf) VALUES ('"
         + nome1 
@@ -75,5 +76,3 @@ def insertCadastro(email, senha, nome1, nome2, cpf):
     cursor.execute(query)
     cnx.commit()
     cursor.close()
-    cnx.close()
-    

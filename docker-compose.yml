@@ -1,0 +1,20 @@
+services:
+  api:
+    build:
+      context: ./api
+    network_mode: host
+    depends_on:
+      db:
+        condition: service_started
+    environment:
+      MYSQL_HOST: 127.0.0.1
+    restart: always
+
+  db:
+    image: mysql:8.0.36
+    environment:
+      MYSQL_ROOT_PASSWORD: senhaUltraSegura
+      MYSQL_DATABASE: db_eventos
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    network_mode: host

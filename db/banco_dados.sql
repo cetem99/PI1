@@ -1,4 +1,4 @@
-CREATE DATABASE db_eventos;
+CREATE DATABASE IF NOT EXISTS db_eventos;
 
 USE db_eventos;
 

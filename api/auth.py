@@ -1,5 +1,5 @@
 from flask import *
-from flask import render_template, request, Flask
+from flask import render_template, request, Flask, Blueprint
 from DAO import *
 import hashlib
 
@@ -54,10 +54,10 @@ def registro_post():
 
     if checkEmail >= 1:
         flash("Email já cadastrado!")
-        return redirect(url_for("cadastro"))
+        return redirect(url_for("auth.cadastro"))
     elif checkCPF >= 1:
         flash("CPF já cadastrado")
-        return redirect(url_for("cadastro"))
+        return redirect(url_for("auth.cadastro"))
     elif(
         not email
         or not senha
