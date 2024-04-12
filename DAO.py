@@ -3,21 +3,16 @@ import mysql.connector
 
 #print(cnx.is_connected())
 
-def CheckLogin(user, senha):
-    cnx = mysql.connector.connect(
+cnx = mysql.connector.connect(
         user="root", password="Gatitcha1", host="127.0.0.1", database="db_eventos"
     )
     cursor = cnx.cursor()
 
-    query = (
-        'SELECT COUNT(*) FROM tb_usuario WHERE user_email = "'
-        + user
-        + '" AND user_password = "'
-        + senha
-        + '"'
+def CheckLogin(user, senha):
+    query = ('SELECT COUNT(*) FROM tb_usuario WHERE user_email =  %s  AND user_password = %s" 
     )
 
-    cursor.execute(query)
+    cursor.execute(query,[user, senha])
 
     querySet = cursor.fetchone()
 
@@ -34,20 +29,6 @@ def CheckLogin(user, senha):
     return count
 
 def CheckCadastro(coluna, atributo):
-    cnx = mysql.connector.connect(
-        user="root", password="Gatitcha1", host="127.0.0.1", database="db_eventos"
-    )
-    cursor = cnx.cursor()
-
-    query = (
-        'SELECT COUNT(*) FROM tb_usuario WHERE '
-        + coluna
-        + ' = "'
-        + atributo
-        + '"'
-    )
-    cursor.execute(query)
-
     querySet = cursor.fetchone()
 
     count = querySet[0]
@@ -63,11 +44,6 @@ def CheckCadastro(coluna, atributo):
     return count
 
 def selectFromWhere(tabela, campoReferencia, valorReferencia, campoBuscado="*"):
-    cnx = mysql.connector.connect(
-        user="root", password="Gatitcha1", host="127.0.0.1", database="db_eventos"
-    )
-    cursor = cnx.cursor()
-
     query = (f"SELECT {campoBuscado} FROM {tabela} WHERE {campoReferencia} = '{valorReferencia}'")
 
     cursor.execute(query)
@@ -82,11 +58,6 @@ def selectFromWhere(tabela, campoReferencia, valorReferencia, campoBuscado="*"):
     return result
 
 def insertCadastro(email, senha, nome1, nome2, cpf):
-    cnx = mysql.connector.connect(
-        user="root", password="Gatitcha1", host="127.0.0.1", database="db_eventos"
-    )
-    cursor = cnx.cursor()
-
     query = (
         "INSERT INTO tb_usuario (user_name, user_email, user_password, user_cpf) VALUES ('"
         + nome1 
