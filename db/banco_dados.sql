@@ -1,6 +1,7 @@
 -- Criar o banco de dados se não existir
 CREATE DATABASE IF NOT EXISTS db_eventos;
 
+-- DROP DATABASE db_eventos;
 -- Usar o banco de dados criado
 USE db_eventos;
 
@@ -68,7 +69,13 @@ CREATE TABLE IF NOT EXISTS tb_review(
 -- Tabela para armazenar códigos de verificação de senha
 CREATE TABLE IF NOT EXISTS tb_verificacao_senha (
     user_id INT PRIMARY KEY,
+    user_email VARCHAR(90) NOT NULL,
     verification_code VARCHAR(100) NOT NULL,
     expiration_time TIMESTAMP NOT NULL,
     FOREIGN KEY (user_id) REFERENCES tb_usuario(user_id)
 );
+
+-- INSERT INTO tb_usuario (user_id, user_name , user_password , user_email , user_cpf) VALUES (1,'Vinicius','12345','viviserrao03@gmail.com','05400140106');
+-- INSERT INTO tb_verificacao_senha ( user_id , verification_code , expiration_time) VALUES (1, '12345',NOW() + INTERVAL 10 MINUTE);
+
+-- DELETE FROM tb_verificacao_senha WHERE expiration_time < NOW();
