@@ -1,8 +1,11 @@
+-- Criar o banco de dados se não existir
 CREATE DATABASE IF NOT EXISTS db_eventos;
 
+-- DROP DATABASE db_eventos;
+-- Usar o banco de dados criado
 USE db_eventos;
 
--- tabela do usuario
+-- Tabela do usuário
 CREATE TABLE IF NOT EXISTS tb_usuario(
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(150) NOT NULL,
@@ -14,32 +17,23 @@ CREATE TABLE IF NOT EXISTS tb_usuario(
     user_type BOOLEAN
 );
 
--- tabela do fornecedor
-CREATE TABLE IF NOT EXISTS tb_fornecerdor(
-    supplier_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_supplier_id INT NOT NULL,
-    phone_number VARCHAR(90),
-    contact_email VARCHAR(90),
-    FOREIGN KEY (user_supplier_id) REFERENCES tb_usuario(user_id)
-);
-
--- tabela do endereço do evento
+-- Tabela do endereço do evento
 CREATE TABLE IF NOT EXISTS tb_local(
-local_id INT PRIMARY KEY AUTO_INCREMENT,
+    local_id INT PRIMARY KEY AUTO_INCREMENT,
     owner_supplier_id INT NOT NULL,
     address VARCHAR(150) NOT NULL,
     address_lat DECIMAL,
     address_long DECIMAL,
-    FOREIGN KEY (owner_supplier_id) REFERENCES tb_fornecerdor(supplier_id)
+    FOREIGN KEY (owner_supplier_id) REFERENCES tb_usuario(user_id)
 );
 
--- tabela das categorias do evento
+-- Tabela das categorias do evento
 CREATE TABLE IF NOT EXISTS tb_categoria_eventos (
-category_id INT PRIMARY KEY AUTO_INCREMENT,
+    category_id INT PRIMARY KEY AUTO_INCREMENT,
     tipo_categoria VARCHAR(90) NOT NULL UNIQUE
 );
 
--- tabela do evento
+-- Tabela do evento
 CREATE TABLE IF NOT EXISTS tb_eventos(
     event_id INT PRIMARY KEY AUTO_INCREMENT,
     owner_event INT NOT NULL,
@@ -47,22 +41,22 @@ CREATE TABLE IF NOT EXISTS tb_eventos(
     event_name VARCHAR(90) NOT NULL,
     event_category INT NOT NULL,
     event_description LONGTEXT,
-    FOREIGN KEY (owner_event) REFERENCES tb_fornecerdor(supplier_id),
+    FOREIGN KEY (owner_event) REFERENCES tb_usuario(user_id),
     FOREIGN KEY (location_event) REFERENCES tb_local(local_id),
     FOREIGN KEY (event_category) REFERENCES tb_categoria_eventos(category_id)
 );
 
--- tabela da imagens dos eventos
+-- Tabela das imagens dos eventos
 CREATE TABLE IF NOT EXISTS tb_imagem_evento (
-image_id INT PRIMARY KEY AUTO_INCREMENT,
+    image_id INT PRIMARY KEY AUTO_INCREMENT,
     image_event_id INT NOT NULL,
     event_images BLOB,
     FOREIGN KEY (image_event_id) REFERENCES tb_eventos(event_id)
 );
 
--- tabela dos reviews
+-- Tabela dos reviews
 CREATE TABLE IF NOT EXISTS tb_review(
-review_id INT PRIMARY KEY AUTO_INCREMENT,
+    review_id INT PRIMARY KEY AUTO_INCREMENT,
     user_review_id INT NOT NULL,
     event_review_id INT NOT NULL,
     rating DECIMAL NOT NULL,
@@ -72,13 +66,16 @@ review_id INT PRIMARY KEY AUTO_INCREMENT,
     FOREIGN KEY (event_review_id) REFERENCES tb_eventos(event_id)
 );
 
--- tabela das mensagens entre fornecedor e cliente
--- CREATE TABLE IF NOT EXISTS tb_message(
--- message_id INT PRIMARY KEY AUTO_INCREMENT,
---     user_message_id INT NOT NULL,
---     recipient_id INT NOT NULL,
---     message TEXT NOT NULL,
---     message_time TIMESTAMP NOT NULL,
---     FOREIGN KEY (user_message_id) REFERENCES tb_usuario(user_id),
---     FOREIGN KEY (recipient_id) REFERENCES tb_fornecerdor(user_supplier_id)
--- );
+-- Tabela para armazenar códigos de verificação de senha
+CREATE TABLE IF NOT EXISTS tb_verificacao_senha (
+    user_id INT PRIMARY KEY,
+    user_email VARCHAR(90) NOT NULL,
+    verification_code VARCHAR(100) NOT NULL,
+    expiration_time TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES tb_usuario(user_id)
+);
+
+-- INSERT INTO tb_usuario (user_id, user_name , user_password , user_email , user_cpf) VALUES (1,'Vinicius','12345','viviserrao03@gmail.com','05400140106');
+-- INSERT INTO tb_verificacao_senha ( user_id , verification_code , expiration_time) VALUES (1, '12345',NOW() + INTERVAL 10 MINUTE);
+
+-- DELETE FROM tb_verificacao_senha WHERE expiration_time < NOW();
