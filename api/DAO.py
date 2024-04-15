@@ -4,7 +4,7 @@ import mysql.connector
 #print(cnx.is_connected())
 
 cnx = mysql.connector.connect(
-        user="root", password="senhaUltraSegura", host="127.0.0.1", database="db_eventos"
+        user="root", password="senhaUltraSegura", host="192.168.0.103", database="db_eventos"
 )
 def CheckLogin(user, senha):
     query = ('SELECT COUNT(*) FROM tb_usuario WHERE user_email =  %s  AND user_password = %s')
