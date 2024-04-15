@@ -2,13 +2,18 @@ services:
   api:
     build:
       context: ./api
+    environment:
+      FLASK_DEBUG: 1
+      FLASK_ENV: development
     network_mode: host
     depends_on:
       db:
         condition: service_started
-    environment:
-      MYSQL_HOST: 127.0.0.1
     restart: always
+    entrypoint: [ "/bin/bash", "-c"]
+    command: ["sleep infinity"]
+    volumes:
+      - ./api:/usr/src/app
 
   db:
     image: mysql:8.0.36

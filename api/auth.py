@@ -1,6 +1,5 @@
-from flask import *
-from flask import render_template, request, Flask, Blueprint
-from DAO import *
+from flask import render_template, request, Flask, Blueprint, flash, url_for, redirect, session
+from DAO import CheckCadastro, CheckLogin, selectFromWhere, insertCadastro
 import hashlib
 
 
@@ -16,7 +15,7 @@ def login():
 @auth.route("/login", methods=["POST"])
 def login_post():
     email = request.form.get("email")
-    senha = hashlib.sha1(request.form.get("senha").encode("utf-8")).hexdigest()
+    senha = hashlib.sha256(request.form.get("senha").encode("utf-8")).hexdigest()
 
     count = CheckLogin(email, senha)
 
@@ -70,7 +69,7 @@ def registro_post():
         return redirect(url_for("cadastro"))
     
     else:
-        senhaHash = hashlib.sha1(senha.encode("utf-8")).hexdigest()
+        senhaHash = hashlib.sha256(senha.encode("utf-8")).hexdigest()
         insertCadastro(email, senhaHash, nome1, nome2, cpf)
         flash("Cadastrado com sucesso!")
         return redirect(url_for("auth.login"))
