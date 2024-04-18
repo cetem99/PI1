@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2Gather</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: grid;
+            grid-template-columns: 60% 40%;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Set body height to full viewport height */
+        }
+
+        header {
+            /* background-color: #333; */
+            color: #000000;
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin-right: 1rem;
+        }
+
+        nav a {
+            /* color: #fff; */
+            text-decoration: none;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        main h2 {
+            margin-top: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+
+        form label {
+            margin-bottom: 0.5rem;
+        }
+
+        form input[type="email"] {
+            padding: 0.5rem;
+        }
+
+        form button[type="submit"] {
+            background-color: #333;
+            border: none;
+            color: #fff;
+            padding: 0.5rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .conteudo {
+            text-align: center;
+        }
+
+        .conteudo img {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100%; /* Set height to full body height */
+        }
+    </style>
+</head>
+
+<body class="grid-container">
+    <main class="menu">
+        <div class="container">
+            <div>
+                <header>
+                    <h1>2Gather</h1>
+                    <nav>
+                        <ul>
+                            <li><a href="#">Log in</a></li>
+                            <li><a href="#">Sign up</a></li>
+                        </ul>
+                    </nav>
+                </header>
+                <main>
+                    <h2>Forgot your password?</h2>
+                    <form action="#">
+                        <label for="email">Email or CPF</label>
+                        <input type="email" id="email" name="email">
+                        <button type="submit">Recover password</button>
+                    </form>
+                    <p>Don't have an account? <a href="#">Sign up</a></p>
+                </main>
+                <footer>
+                    <p>Want to receive emails about the product, feature updates, events, and marketing promotions? <a href="#">Sign
+                            up</a></p>
+                </footer>
+            </div>
+        </div>
+    </main>
+    <div class="conteudo">
+        <img src="image/cube.png" alt="">
+    </div>
+</body>
+
+</html>
