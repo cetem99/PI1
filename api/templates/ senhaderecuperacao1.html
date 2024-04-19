@@ -4,7 +4,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Verificação</title>
+     <title>Document</title>
      <style>
           body {
                background-image: url('https://cdn.discordapp.com/attachments/1221965249494909079/1228903097041158154/11.png?ex=662dbc32&is=661b4732&hm=b0cc2d1d6602c6ac53a37c65196113638fdbfc8245c35b99afcc7af8d5191d0a&');
@@ -127,17 +127,19 @@
                outline: none;
                cursor: pointer;
                font-size: 1em;
-               font-weight: bold;
+               font-weight: bolder;
                font-family: "Secular One", sans-serif;
                font-weight: 100;
                font-style: normal;
                color: #FAF9FA;
                transition: background 0.3s, color 0.3s;
+               
           }
 
-          button:hover {
+          button.active  {
                color: #ebf2fa;
                background: #0E805F;
+               pointer-events:fill ;
           }
 
           a {
@@ -205,5 +207,27 @@
           </center>
      </main>
 </body>
+<script>
+     const inputs = document.querySelectorAll("input");
+        const button = document.querySelector("button");
 
+        inputs.forEach(input => {
+            input.addEventListener("keyup", () => {
+                let allFilled = true;
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        allFilled = false;
+                    }
+                });
+                if (allFilled) {
+                    button.classList.add("active");
+                } else {
+                    button.classList.remove("active");
+                }
+            });
+        });
+
+        window.addEventListener("load", () => inputs[0].focus());
+
+</script>
 </html>
