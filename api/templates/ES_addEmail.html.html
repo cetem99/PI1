@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <style>
+          body {
+               background-image: url('https://cdn.discordapp.com/attachments/1221965249494909079/1228903097041158154/11.png?ex=662dbc32&is=661b4732&hm=b0cc2d1d6602c6ac53a37c65196113638fdbfc8245c35b99afcc7af8d5191d0a&');
+               background-size: cover;
+               background-repeat: no-repeat;
+
+               margin: 20% auto;
+               padding: 0;
+               position: relative;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+          }
+
+          main {
+               background-color: #F5F5F5;
+               padding: 20px;
+               width: 500px;
+               border: 1px solid #CCCCCC;
+               font-family: Arial, sans-serif;
+               border-radius: 20px;
+               /* box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.5); */
+               max-width: 80%;
+               padding: 3%;
+
+          }
+
+          div {
+               text-align: center;
+          }
+
+          img {
+               margin-top: 5%;
+          }
+
+          h3 {
+               margin-top: 5%;
+               margin-bottom: 10%;
+               color: #333333;
+          }
+
+          @media only screen and (max-width:800px) {
+               body {
+                    min-height: 600px;
+                    margin: 20% auto;
+                    padding: 0;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+               }
+          }
+
+          .inputbox {
+               position: relative;
+               width: 80%px;
+               border: 2px solid #b9b9b9;
+               border-radius: 5px;
+          }
+
+          .inputbox label {
+               /* position: absolute; */
+               /* top: 50%; */
+               /* left: 5px; */
+               /* transform: translateY(-50%); */
+               font-size: 1em;
+               color: #333333;
+               pointer-events: none;
+               transition: .5s;
+          }
+
+          label {
+               margin-left: 20%;
+          }
+
+          input {
+
+               margin-top: 0px;
+               margin-left: 2%;
+               /* width: 50%; */
+
+          }
+
+          /* input[type=checkbox]+label {
+               color: #333333;
+               font-style: italic;
+          } */
+
+          /* input[type=checkbox]:checked+label {
+               color: #FAF9FA;
+               font-style: normal;
+               font-size: large;
+          } */
+
+          input[type=checkbox]:checked+label+a {
+               font-style: normal;
+               font-size: large;
+          }
+
+          .inputbox input {
+               width: 100%;
+               height: 50px;
+               background: transparent;
+               border: none;
+               outline: none;
+               font-size: 1em;
+               padding: 0 35px 0 5px;
+               color: #333333;
+          }
+
+          button {
+               margin-top: 5%;
+               width: 100%;
+               height: 40px;
+               border-radius: 20px;
+               padding-top: 4%;
+               padding-bottom: 7%;
+               background: #919191;
+               border: none;
+               outline: none;
+               cursor: pointer;
+               font-size: 1em;
+               font-weight: bolder;
+               font-family: "Secular One", sans-serif;
+               font-weight: 100;
+               font-style: normal;
+               color: #FAF9FA;
+               transition: background 0.3s, color 0.3s;
+               
+          }
+
+          button.active  {
+               color: #ebf2fa;
+               background: #0E805F;
+               pointer-events:fill ;
+          }
+
+          a {
+               color: #333333;
+               text-decoration: none;
+               font-weight: 600;
+               transition: decoration 0.3s, color 0.3s;
+          }
+
+          a:hover {
+               color: #3737CD;
+               text-decoration: underline;
+          }
+
+          .register p a:hover {
+               color: #caf0f8;
+               text-decoration: underline;
+          }
+
+          .container {
+               position: relative;
+          }
+
+          .container img {
+               width: 5%;
+               position: absolute;
+               top: -30px;
+               right: 0;
+          }
+          center{
+               margin-bottom: 10%;
+          }
+
+          @media only screen and (max-width:500px) {
+               div {
+                    border-radius: 0%;
+               }
+          }
+     </style>
+</head>
+
+<body>
+     <main>
+          <div class="container">
+              <a href="#"> <img src="../static/image/x.svg" alt="Your Image"></a>
+          </div>
+
+          <div>
+               <!-- <img src="../static/image/2gather.png" alt="" width="30%"> -->
+               <img src="../static/image/2gather.svg" alt="" width="40%">
+               <h4>Esqueceu a senha? Não tem problema,<br> estamos aqui para ajudar.😊</h5>
+          </div>
+          <p style="margin-bottom: 0; color: #333333;">Digite seu e-mail para alterar sua senha.
+          </p>
+          <p style="margin:5% 0px 1% 0px;">Email:</p>
+          <div class="inputbox">
+               <input name="email" type="text" id="name_input" required />
+          </div>
+          <button onclick="Enviar()">Recuperar a Senha</button>
+          <center>
+               <p style="margin:5% 0px 1% 0px;">
+                    <b><i>Lembrei Da Senha? </i></b>&nbsp;
+                    <a href="#">LogIn</a>
+               </p>
+          </center>
+     </main>
+</body>
+<script>
+     const inputs = document.querySelectorAll("input");
+        const button = document.querySelector("button");
+
+        inputs.forEach(input => {
+            input.addEventListener("keyup", () => {
+                let allFilled = true;
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        allFilled = false;
+                    }
+                });
+                if (allFilled) {
+                    button.classList.add("active");
+                } else {
+                    button.classList.remove("active");
+                }
+            });
+        });
+
+        window.addEventListener("load", () => inputs[0].focus());
+
+</script>
+</html>

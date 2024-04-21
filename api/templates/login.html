@@ -1,70 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-     <link
-      rel="shortcut icon"
-      type="x-icon"
-      href="../static/Vector.png"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Hind:wght@600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../static/CSS/login.css" />
-    <script src="../JS/Login.js" type="text/javascript" defer></script>
-    <script
-    type="module"
-    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-  ></script>
-  <script
-    nomodule
-    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-  ></script>
-    <title>PI1</title>
-  </head>
-  <body>
-    <main>
-      <div class="form-box">
-        <div class="form-value">
-          {% with messages = get_flashed_messages() %} {% if messages %}
-          <div class="notification">{{ messages[0] }}</div>
-          {% endif %} {% endwith %}
-          <h2>login</h2>
-          <form action="/login" method="post">
-            <div id="hi">
-            <div>
-            <div class="inputbox">
-              <ion-icon name="mail-outline"></ion-icon>
-              <input name="email" type="text" id="name_input" required placeholder="Email"/>
-            <!--  <label id="email" for="" onclick="clicar()">Email</label>-->
-            </div>
-            <div class="inputbox">
-              <ion-icon name="lock-closed-outline"></ion-icon>
-              <input
-                name="senha"
-                type="password"
-                id="password_input"
-                required
-                placeholder="Senha"
-              />
-              <!--<label for="password">Senha</label>-->  
-            </div>
-          
-            <button onclick="Enviar()">Login</button>
 
-            <div class="register">
-              <p>
-                <b><i>Não tem uma conta ? </i></b>&nbsp;
-                <a href="{{ url_for('auth.cadastro') }}">Criar conta</a>
-              </p>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="shortcut icon" type="x-icon" href="../static/Vector.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Hind:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../static/CSS/login.css" />
+  <script src="../JS/Login.js" type="text/javascript" defer></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <title>PI1</title>
+</head>
+
+<body>
+  <main>
+    <div class="form-box">
+      <div class="form-value">
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <div class="notification">{{ messages[0] }}</div>
+        {% endif %} {% endwith %}
+        <h2>login</h2>
+        <form action="/login" method="post">
+          <div id="hi">
+            <div>
+              <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input name="email" type="text" id="name_input" required placeholder="Email" />
+                <!--  <label id="email" for="" onclick="clicar()">Email</label>-->
+              </div>
+              <div class="inputbox">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <input name="senha" type="password" id="password_input" required placeholder="Senha" />
+                <!--<label for="password">Senha</label>-->
+              </div>
+
+              <button onclick="Enviar()">Login</button>
+
+              <div class="register" >
+                <p style="padding-top: 5%;">
+                  <b><i>Não tem uma conta ? </i></b>&nbsp;
+                  <a href="{{ url_for('auth.cadastro') }}">Criar conta</a>
+                </p>
+                <p style="margin-top: 3%;">
+                  <b><i>
+                      <a href="#">Esqueci minha senha</a>
+                    </i></b>
+                </p>
+              </div>
             </div>
-          </div>
-          </form>
-        </div>
+        </form>
       </div>
-    </main> 
-  </body>
+    </div>
+  </main>
+</body>
+
 </html>
