@@ -50,9 +50,6 @@ def registro_post():
     nome2 = request.form.get("nome2")
     cpf = request.form.get("cpf")
 
-    checkEmail = CheckCadastro("user_email", email)
-    checkCPF = CheckCadastro("user_cpf", cpf)
-
     if checkEmail >= 1:
         flash("Email já cadastrado!")
         return redirect(url_for("auth.cadastro"))
@@ -70,36 +67,54 @@ def registro_post():
         flash("Preencha o formulário todo!")
         return redirect(url_for("cadastro"))
 
-    
     else:
-        # fazer a checagem por código de verificação
-        codigo_verificacao = gerar_codigo()
-        codigos_de_verificacao[email] = codigo_verificacao
-        enviar_email(nome1, codigo_verificacao, email)
-        
+      
         senhaHash = sha256(senha.encode("utf-8")).hexdigest()
         insertCadastro(email, senhaHash, nome1, nome2, cpf)
         flash("Cadastrado com sucesso!")
         return redirect(url_for("auth.login"))        
 
-@auth.route("/verificar_email")
+@auth.route("/ES_addEmail.html.html")
 def cadastro():
-    return render_template("verificar_email.html")
+    return render_template("ES_addEmail.html.html")
 
-@auth.route("/verificar_email", methods=["POST"])
-def verificar_email(email):
-    
-    if request.method == "POST":
-        codigo_inserido = request.form.get("codigo")  # Obtém o código de verificação inserido pelo usuário
+@auth.route("/esqueci-minha-senha")
+def esqueci_minha_senha():
+    return render_template("esqueci_minha_senha.html")
 
-        
-        # Verifica se o código inserido pelo usuário corresponde ao código enviado por e-mail
-        codigo_gerado = codigos_de_verificacao.get(email)
-        if codigo_gerado and codigo_inserido == codigo_gerado:
-            # Se o código estiver correto, redireciona o usuário para a página de login
-            flash("E-mail verificado com sucesso! Faça login para continuar.")
-            return 
-        else:
-            # Se o código estiver incorreto, exibe uma mensagem de erro e redireciona o usuário de volta para a página de verificação
-            flash("Código de verificação incorreto. Por favor, tente novamente.")
-            return redirect(url_for("auth.verificar_email"))
+# Rota para enviar o código de verificação após inserir o email
+@auth.route("/ES_addEmail.html.html", methods=["POST"])
+def enviar_codigo_verificacao():
+    email = request.form.get("email")
+    codigo_verificacao = gerar_codigo()
+    codigos_de_verificacao[email] = codigo_verificacao
+    enviar_email(codigo_verificacao, email)
+
+    # Insere o código de verificação no banco de dados
+    # expiration time em minutos
+    expiration_time = 10
+    insertCodigo(email, codigo_verificacao, expiration_time)
+
+    flash("Um código de verificação foi enviado para o seu email. Por favor, verifique.")
+    return redirect(url_for("auth.ES_6digito", email=email))
+
+# Rota para a página onde o usuário insere o código de verificação
+@auth.route("/ES_6digito/<email>")
+def verificar_codigo(email):
+    return render_template("ES_6digito.html", email=email)
+
+# Rota para verificar o código de verificação inserido pelo usuário
+@auth.route("/ES_6digito", methods=["POST"])
+def verificar_codigo_post():
+    email = request.form.get("email")
+    codigo_inserido = request.form.get("codigo")
+
+    # Verifica se o código inserido pelo usuário corresponde ao código enviado por email
+    codigo_gerado = codigos_de_verificacao.get(email)
+    if codigo_gerado and codigo_inserido == codigo_gerado:
+        # Se o código estiver correto, redireciona o usuário para a página de redefinição de senha
+        return redirect(url_for("auth.Rota_da_nova_senha", email=email))
+    else:
+        # Se o código estiver incorreto, exibe uma mensagem de erro e redireciona o usuário de volta para a página de verificação
+        flash("Código de verificação incorreto. Por favor, tente novamente.")
+        return redirect(url_for("auth.ES_6digito", email=email))

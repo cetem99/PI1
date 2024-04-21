@@ -72,7 +72,16 @@ def insertCadastro(email, senha, nome1, nome2, cpf):
         + cpf
         + "')"
     )
-
     cursor.execute(query)
+    cnx.commit()
+    cursor.close()
+
+def insertCodigo(email, verification_code, expiration_time):
+    cursor = cnx.cursor()
+    query = (
+        "INSERT INTO tb_verificacao_senha (user_id, user_email, verification_code, expiration_time) VALUES ("
+        "(SELECT user_id FROM tb_usuario WHERE user_email = %s), %s, %s,NOW() + INTERVAL %s MINUTE)"
+    )
+    cursor.execute(query, (email, email, verification_code, expiration_time))
     cnx.commit()
     cursor.close()
