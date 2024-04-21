@@ -74,16 +74,12 @@ def registro_post():
         flash("Cadastrado com sucesso!")
         return redirect(url_for("auth.login"))        
 
-@auth.route("/ES_addEmail.html.html")
-def cadastro():
-    return render_template("ES_addEmail.html.html")
-
-@auth.route("/esqueci-minha-senha")
-def esqueci_minha_senha():
-    return render_template("esqueci_minha_senha.html")
+@auth.route("/ES_addEmail")
+def ES_addEmail():
+    return render_template("ES_addEmail.html")
 
 # Rota para enviar o código de verificação após inserir o email
-@auth.route("/ES_addEmail.html.html", methods=["POST"])
+@auth.route("/ES_addEmail", methods=["POST"])
 def enviar_codigo_verificacao():
     email = request.form.get("email")
     codigo_verificacao = gerar_codigo()
