@@ -1,16 +1,23 @@
 import mysql.connector
 
 
-#print(cnx.is_connected())
+# print(cnx.is_connected())
 
 cnx = mysql.connector.connect(
-        user="root", password="senhaUltraSegura", host="192.168.0.103", database="db_eventos"
+    user="root",
+    password="senhaUltraSegura",
+    host="192.168.0.103",
+    database="db_eventos",
 )
+
+
 def CheckLogin(user, senha):
-    query = ('SELECT COUNT(*) FROM tb_usuario WHERE user_email =  %s  AND user_password = %s')
+    query = (
+        "SELECT COUNT(*) FROM tb_usuario WHERE user_email =  %s  AND user_password = %s"
+    )
 
     cursor = cnx.cursor()
-    cursor.execute(query,[user, senha])
+    cursor.execute(query, [user, senha])
 
     querySet = cursor.fetchone()
 
@@ -24,6 +31,7 @@ def CheckLogin(user, senha):
     cursor.close()
 
     return count
+
 
 def CheckCadastro(coluna, atributo):
     query = f"SELECT COUNT(*) FROM tb_usuario WHERE {coluna} = %s"
@@ -43,9 +51,10 @@ def CheckCadastro(coluna, atributo):
 
     return count
 
+
 def selectFromWhere(tabela, campoReferencia, valorReferencia, campoBuscado="*"):
     cursor = cnx.cursor()
-    query = (f"SELECT {campoBuscado} FROM {tabela} WHERE {campoReferencia} = '{valorReferencia}'")
+    query = f"SELECT {campoBuscado} FROM {tabela} WHERE {campoReferencia} = '{valorReferencia}'"
 
     cursor.execute(query)
 
@@ -53,17 +62,20 @@ def selectFromWhere(tabela, campoReferencia, valorReferencia, campoBuscado="*"):
 
     result = querySet[0]
 
+    # print(result)
+
     cursor.close()
 
     return result
+
 
 def insertCadastro(email, senha, nome1, nome2, cpf):
     cursor = cnx.cursor()
     query = (
         "INSERT INTO tb_usuario (user_name, user_email, user_password, user_cpf) VALUES ('"
-        + nome1 
+        + nome1
         + " "
-        + nome2 
+        + nome2
         + "', '"
         + email
         + "', '"
@@ -76,6 +88,7 @@ def insertCadastro(email, senha, nome1, nome2, cpf):
     cnx.commit()
     cursor.close()
 
+
 def insertCodigo(email, verification_code, expiration_time):
     cursor = cnx.cursor()
     query = (
@@ -83,5 +96,15 @@ def insertCodigo(email, verification_code, expiration_time):
         "(SELECT user_id FROM tb_usuario WHERE user_email = %s), %s, %s,NOW() + INTERVAL %s MINUTE)"
     )
     cursor.execute(query, (email, email, verification_code, expiration_time))
+    cnx.commit()
+    cursor.close()
+
+
+def deleteCodigo(email):
+    cursor = cnx.cursor
+
+    query = "DELETE FROM tb_verificacao_senha WHERE user_email = '" + email + "'"
+
+    cursor.execute(query)
     cnx.commit()
     cursor.close()

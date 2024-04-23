@@ -5,14 +5,15 @@ import email.mime.application
 from random import choices
 from string import digits
 
+
 def gerar_codigo():
-    codigo = ''.join(choices(digits, k=6))
+    codigo = "".join(choices(digits, k=6))
     return codigo
+
 
 def enviar_email(user_name, codigo, user_email):
 
-    corpo_email = \
-    f'''
+    corpo_email = f"""
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -32,24 +33,24 @@ def enviar_email(user_name, codigo, user_email):
     </div>
 </body>
 </html>
-    '''
+    """
 
     try:
         msg = email.mime.multipart.MIMEMultipart()
-        msg['Subject'] = f"Verificação de e-mail da 2gather"
-        msg['From'] = 'suporte2gather@gmail.com'
-        msg['To'] = f'{user_email}'
-        password = f'wttfjeknjfrddnzd'
-        msg.attach(email.mime.text.MIMEText(corpo_email, 'html'))
+        msg["Subject"] = f"Verificação de e-mail da 2gather"
+        msg["From"] = "suporte2gather@gmail.com"
+        msg["To"] = f"{user_email}"
+        password = f"wttfjeknjfrddnzd"
+        msg.attach(email.mime.text.MIMEText(corpo_email, "html"))
 
-        s = smtplib.SMTP('smtp.gmail.com: 587')
+        s = smtplib.SMTP("smtp.gmail.com: 587")
         s.starttls()
-        s.login(msg['From'], password)
-        s.sendmail(msg['From'], [msg['To']], msg.as_string())
+        s.login(msg["From"], password)
+        s.sendmail(msg["From"], [msg["To"]], msg.as_string())
         s.quit()
         return f"Sucesso: E-mail enviado com sucesso para {user_email}!", 1
     except Exception as e:
-        return f"Oops! Parece que houve um problema ao enviar o e-mail. Por favor, tente novamente", 0
-
-if __name__ == '__main__':
-    enviar_email('Mateus Magno', gerar_codigo(), 'mattmfsoares@gmail.com')
+        return (
+            f"Oops! Parece que houve um problema ao enviar o e-mail. Por favor, tente novamente",
+            0,
+        )
