@@ -9,9 +9,9 @@ USE db_eventos;
 CREATE TABLE IF NOT EXISTS tb_usuario(
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(150) NOT NULL,
-    user_email VARCHAR(90) NOT NULL,
+    user_email VARCHAR(90) NOT NULL UNIQUE,
     user_password VARCHAR(90) NOT NULL,
-    user_cpf VARCHAR(90) NOT NULL,
+    user_cpf VARCHAR(90) NOT NULL UNIQUE,
     user_uf VARCHAR(2),
     user_image BLOB,
     user_type BOOLEAN
@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS tb_review(
 -- Tabela para armazenar códigos de verificação de senha
 CREATE TABLE IF NOT EXISTS tb_verificacao_senha (
     user_id INT PRIMARY KEY,
-    user_email VARCHAR(90) NOT NULL,
-    verification_code VARCHAR(100) NOT NULL,
+    user_email VARCHAR(90) NOT NULL UNIQUE,
+    verification_code VARCHAR(100) NOT NULL UNIQUE,
     expiration_time TIMESTAMP NOT NULL,
     FOREIGN KEY (user_id) REFERENCES tb_usuario(user_id)
 );
