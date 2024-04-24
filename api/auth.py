@@ -128,7 +128,7 @@ def verificar_codigo_post():
     codigo_inserido = ''
     email = request.form.get("email")
     for num in range(1, 7):
-        codigo_inserido += str(request.form.get("number_{num}"))
+        codigo_inserido += str(request.form.get(f"number_{num}"))
 
 
     codigo_gerado = selectFromWhere(
