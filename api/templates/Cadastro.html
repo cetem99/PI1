@@ -71,23 +71,57 @@
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script>
-    const nomes_login = [];
+    const inputs = document.querySelectorAll("input[name='senha'], input[name='verificação de senha']");
+    const checkbox = document.getElementById("habi");
+    const button = document.querySelector("button");
 
-    const Enviar = () => {
-      const nameInputValue = document.getElementById("name_input").value;
-      const passwordInputValue =
-        document.getElementById("password_input").value;
-      const Aceitar = document.getElementById("habi").checked;
-      if (!Aceitar) {
-        alert("Você deve aceitar os termos de uso antes de prosseguir.");
-      } else if (nameInputValue && passwordInputValue) {
-        nomes_login.push({ Nome: nameInputValue, Senha: passwordInputValue });
-        console.log(nomes_login);
-      } else {
-        alert("Preencha os campos de nome e senha antes de enviar.");
-      }
-    };
-  </script>
+    inputs.forEach(input => {
+        input.addEventListener("keyup", () => {
+            checkFormValidity();
+        });
+    });
+
+    checkbox.addEventListener("change", () => {
+        checkFormValidity();
+    });
+
+    function checkFormValidity() {
+        let allFilled = true;
+        inputs.forEach(input => {
+            if (!input.value) {
+                allFilled = false;
+            }
+        });
+
+        const password1 = inputs[0].value;
+        const password2 = inputs[1].value;
+
+        // Check if passwords match and contain a special character and are at least 8 characters long
+        if (allFilled && password1 === password2 && hasSpecialCharacter(password1) && password1.length >= 8 && checkbox.checked) {
+            button.classList.add("active");
+        } else {
+            button.classList.remove("active");
+        }
+    }
+
+    window.addEventListener("load", () => inputs[0].focus());
+
+    function hasSpecialCharacter(password) {
+        const specialCharacters = /[!@#$%^&*(),.?":{}|<>]/;
+        return specialCharacters.test(password);
+    }
+
+    function Enviar() {
+        const password1 = inputs[0].value;
+        const password2 = inputs[1].value;
+
+        if (password1 !== password2 || !hasSpecialCharacter(password1) || password1.length < 8) {
+            alert("A senha deve corresponder, conter um caractere especial e ter pelo menos 8 caracteres.");
+        } else {
+            alert("seu cadastro foi enviado com sucesso!");
+        }
+    }
+</script>
 </body>
 
 </html>

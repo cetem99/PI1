@@ -6,17 +6,6 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Document</title>
      <style>
-          /* body {
-               background-image: url('https://cdn.discordapp.com/attachments/1221965249494909079/1228903097041158154/11.png?ex=662dbc32&is=661b4732&hm=b0cc2d1d6602c6ac53a37c65196113638fdbfc8245c35b99afcc7af8d5191d0a&');
-               background-size: cover;
-               background-repeat: no-repeat;
-               margin: 20% auto;
-               padding: 0;
-               position: relative;
-               display: flex;
-               justify-content: center;
-               align-items: center;
-          } */
           body {
                background-image: url('https://cdn.discordapp.com/attachments/1221965249494909079/1228903097041158154/11.png?ex=662dbc32&is=661b4732&hm=b0cc2d1d6602c6ac53a37c65196113638fdbfc8245c35b99afcc7af8d5191d0a&');
                background-size: cover;
@@ -197,28 +186,32 @@
 <body>
      <main>
           <div class="container">
-               <a href="{{ url_for('main.home')}}"> <img src="../static/image/x.svg" alt="Your Image"></a>
+               <a href="#"> <img src="../static/image/x.svg" alt="Your Image"></a>
           </div>
 
           <div>
                <!-- <img src="../static/image/2gather.png" alt="" width="30%"> -->
                <img src="../static/image/2gather.svg" alt="" width="40%">
-               <h4>Esqueceu a senha? Não tem problema,<br> estamos aqui para ajudar.😊</h5>
+               <h2> Agora só falta alterar a senha😊</h2>
+               <h3> 🚨⚠️ A senha deve ter pelo menos 8 ⚠️🚨<br> ⚠️🚨caracteres e incluir um caractere especial🚨⚠️</h3>
           </div>
-          {% with messages = get_flashed_messages() %} {% if messages %}
-          <div class="notification">{{ messages[0] }}</div>
-          {% endif %} {% endwith %}
-          <p style="margin-bottom: 0; color: #333333;">Digite seu e-mail para alterar sua senha.
+          <p style="margin-bottom: 0; color: #333333;">
+               Digite sua nova senha
           </p>
-          <p style="margin:5% 0px 1% 0px;">Email:</p>
           <div class="inputbox">
-               <input name="user_email" type="text" id="user_email" required />
+               <input name="senha" type="password" id="name_input" required />
+          </div>
+          <p style="margin-bottom: 0; color: #333333;">
+               Verificação de senha, digite a mesma senha
+          </p>
+          <div class="inputbox">
+               <input name="verificação de senha" type="password" id="name_input" required />
           </div>
           <button onclick="Enviar()">Recuperar a Senha</button>
           <center>
                <p style="margin:5% 0px 1% 0px;">
-                    <b><i>Lembrou Da Senha? </i></b>&nbsp;
-                    <a href="{{ url_for('auth.login')}}">LogIn</a>
+                    <b><i>Lembrei Da Senha? </i></b>&nbsp;
+                    <a href="#">LogIn</a>
                </p>
           </center>
      </main>
@@ -235,7 +228,12 @@
                          allFilled = false;
                     }
                });
-               if (allFilled) {
+
+               const password1 = inputs[0].value;
+               const password2 = inputs[1].value;
+
+               // Check if passwords match and contain a special character and are at least 8 characters long
+               if (allFilled && password1 === password2 && hasSpecialCharacter(password1) && password1.length >= 8) {
                     button.classList.add("active");
                } else {
                     button.classList.remove("active");
@@ -245,6 +243,23 @@
 
      window.addEventListener("load", () => inputs[0].focus());
 
+     function hasSpecialCharacter(password) {
+          const specialCharacters = /[!@#$%^&*(),.?":{}|<>]/;
+          return specialCharacters.test(password);
+     }
+
+     function Enviar() {
+          const password1 = inputs[0].value;
+          const password2 = inputs[1].value;
+
+          if (password1 !== password2 || !hasSpecialCharacter(password1) || password1.length < 8) {
+               alert("A senha deve corresponder, conter um caractere especial e ter pelo menos 8 caracteres.");
+          } else {
+               // Proceed with sending the password
+               alert("Senha Alterado com sucesso!");
+          }
+     }
 </script>
+
 
 </html>
