@@ -125,14 +125,17 @@ def verificar_codigo(email):
 # Rota para verificar o código de verificação inserido pelo usuário
 @auth.route("/verificar_codigo", methods=["POST"])
 def verificar_codigo_post():
+    codigo_inserido = ''
     email = request.form.get("email")
-    codigo_inserido = request.form.get("codigo")
+    for num in range(1, 7):
+        codigo_inserido += str(request.form.get("number_{num}"))
+
 
     codigo_gerado = selectFromWhere(
         "tb_verificacao_senha", "user_email", email, "verification_code"
     )
 
-    if codigo_gerado == codigo_inserido:
+    if codigo_gerado == int(codigo_inserido):
         deleteCodigo(email)
         # session.pop("EmailVerificadoReset", None)
         return redirect(url_for("auth.Rota_da_nova_senha", email=email))
