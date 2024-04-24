@@ -117,9 +117,11 @@
           }
 
           button {
-               margin-top: 5%;
+               margin-top: 7%;
+               margin-bottom: 1%;
                width: 100%;
-               height: 40px;
+               /* height: 40px; */
+               height: 50px;
                border-radius: 20px;
                padding-top: 4%;
                padding-bottom: 7%;
@@ -208,12 +210,12 @@
                <input name="verificação de senha" type="password" id="name_input" required />
           </div>
           <button onclick="Enviar()">Recuperar a Senha</button>
-          <center>
+          <!-- <center>
                <p style="margin:5% 0px 1% 0px;">
                     <b><i>Lembrei Da Senha? </i></b>&nbsp;
                     <a href="#">LogIn</a>
                </p>
-          </center>
+          </center> -->
      </main>
 </body>
 <script>
@@ -256,7 +258,7 @@
                alert("A senha deve corresponder, conter um caractere especial e ter pelo menos 8 caracteres.");
           } else {
                // Proceed with sending the password
-               alert("Senha Alterado com sucesso!");
+               alert("Senha foi alterado com sucesso!");
           }
      }
 </script>
